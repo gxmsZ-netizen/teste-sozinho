@@ -1,101 +1,108 @@
-/* estilo.css — Mural de Turmas — Family Academy */
+/* estilo.css — paleta minimalista, tons neutros */
+
+:root {
+  --bg: #fafafa;
+  --texto: #2b2b2b;
+  --texto-suave: #6b6b6b;
+  --card-bg: #ffffff;
+  --borda: #e2e2e2;
+  --destaque: #3a3a3a;
+}
+
+body.modo-escuro {
+  --bg: #1a1a1a;
+  --texto: #f0f0f0;
+  --texto-suave: #b0b0b0;
+  --card-bg: #262626;
+  --borda: #383838;
+  --destaque: #f0f0f0;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: 'Segoe UI', Verdana, sans-serif;
-  background-color: #eef4f8;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--texto);
   margin: 0;
-  padding: 40px;
-  color: #2c3e50;
+  padding: 50px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 h1 {
-  text-align: center;
-  color: #1b4965;
-  margin-bottom: 40px;
+  font-weight: 600;
   font-size: 2em;
+  margin-bottom: 4px;
+  color: var(--destaque);
 }
 
-ul {
-  list-style: none;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 0;
+.subtitulo {
+  color: var(--texto-suave);
+  margin-top: 0;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.85em;
 }
 
-/* Cada turma vira um "cartão" */
-li {
-  background-color: #ffffff;
-  border: 1px solid #d6e4ec;
-  border-left: 6px solid #2c8ac4;
-  margin-bottom: 18px;
-  padding: 18px 22px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
-}
-
-li:hover {
-  transform: translateY(-3px);
-}
-
-.curso {
-  display: block;
-  font-weight: bold;
-  font-size: 1.2em;
-  color: #1b4965;
-  margin-bottom: 6px;
-}
-
-.info {
-  display: block;
-  font-size: 0.95em;
-  color: #557;
-}
-
-/* Botão e contador (etapa 4) */
 #botao-modo-escuro {
-  display: block;
-  margin: 0 auto 10px auto;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  background-color: #1b4965;
-  color: #fff;
-  font-size: 0.95em;
+  border: 1px solid var(--borda);
+  background-color: transparent;
+  color: var(--texto);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9em;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 #botao-modo-escuro:hover {
-  background-color: #163a52;
+  background-color: var(--card-bg);
+}
+
+main {
+  max-width: 560px;
+  margin: 0 auto;
 }
 
 #contador {
   text-align: center;
-  font-weight: bold;
-  color: #1b4965;
+  color: var(--texto-suave);
+  font-size: 0.9em;
   margin-bottom: 25px;
 }
 
-/* Modo escuro */
-body.modo-escuro {
-  background-color: #10141a;
-  color: #e6e6e6;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-body.modo-escuro h1,
-body.modo-escuro #contador {
-  color: #9fd3ff;
+li {
+  background-color: var(--card-bg);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-body.modo-escuro li {
-  background-color: #1c232c;
-  border-color: #2c3743;
+.curso {
+  display: block;
+  font-weight: 600;
+  font-size: 1.05em;
 }
 
-body.modo-escuro .curso {
-  color: #9fd3ff;
-}
-
-body.modo-escuro .info {
-  color: #b0b8c1;
+.info {
+  display: block;
+  color: var(--texto-suave);
+  font-size: 0.9em;
+  margin-top: 4px;
 }
