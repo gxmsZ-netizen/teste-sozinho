@@ -1,0 +1,101 @@
+/* estilo.css — Mural de Turmas — Family Academy */
+
+body {
+  font-family: 'Segoe UI', Verdana, sans-serif;
+  background-color: #eef4f8;
+  margin: 0;
+  padding: 40px;
+  color: #2c3e50;
+}
+
+h1 {
+  text-align: center;
+  color: #1b4965;
+  margin-bottom: 40px;
+  font-size: 2em;
+}
+
+ul {
+  list-style: none;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Cada turma vira um "cartão" */
+li {
+  background-color: #ffffff;
+  border: 1px solid #d6e4ec;
+  border-left: 6px solid #2c8ac4;
+  margin-bottom: 18px;
+  padding: 18px 22px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+li:hover {
+  transform: translateY(-3px);
+}
+
+.curso {
+  display: block;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #1b4965;
+  margin-bottom: 6px;
+}
+
+.info {
+  display: block;
+  font-size: 0.95em;
+  color: #557;
+}
+
+/* Botão e contador (etapa 4) */
+#botao-modo-escuro {
+  display: block;
+  margin: 0 auto 10px auto;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1b4965;
+  color: #fff;
+  font-size: 0.95em;
+  cursor: pointer;
+}
+
+#botao-modo-escuro:hover {
+  background-color: #163a52;
+}
+
+#contador {
+  text-align: center;
+  font-weight: bold;
+  color: #1b4965;
+  margin-bottom: 25px;
+}
+
+/* Modo escuro */
+body.modo-escuro {
+  background-color: #10141a;
+  color: #e6e6e6;
+}
+
+body.modo-escuro h1,
+body.modo-escuro #contador {
+  color: #9fd3ff;
+}
+
+body.modo-escuro li {
+  background-color: #1c232c;
+  border-color: #2c3743;
+}
+
+body.modo-escuro .curso {
+  color: #9fd3ff;
+}
+
+body.modo-escuro .info {
+  color: #b0b8c1;
+}
