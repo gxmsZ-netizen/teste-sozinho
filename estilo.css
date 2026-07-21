@@ -52,6 +52,13 @@ h1 {
   font-size: 0.85em;
 }
 
+.acoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#botao-nova-turma,
 #botao-modo-escuro {
   border: 1px solid var(--borda);
   background-color: transparent;
@@ -63,6 +70,7 @@ h1 {
   transition: all 0.2s ease;
 }
 
+#botao-nova-turma:hover,
 #botao-modo-escuro:hover {
   background-color: var(--card-bg);
 }
@@ -70,6 +78,69 @@ h1 {
 main {
   max-width: 560px;
   margin: 0 auto;
+}
+
+/* Painel de cadastro */
+.painel-cadastro {
+  background-color: var(--card-bg);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.painel-cadastro.escondido {
+  display: none;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 0.85em;
+  color: var(--texto-suave);
+}
+
+.campo input,
+.campo select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--borda);
+  background-color: var(--bg);
+  color: var(--texto);
+  font-size: 0.95em;
+}
+
+.botoes-form {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.botao-primario {
+  background-color: var(--destaque);
+  color: var(--bg);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+#botao-cancelar {
+  background-color: transparent;
+  border: 1px solid var(--borda);
+  color: var(--texto);
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
 }
 
 #contador {
