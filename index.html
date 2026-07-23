@@ -8,22 +8,67 @@
 </head>
 <body>
 
-  <h1>Mural de Turmas — Family Academy</h1>
+  <header>
+    <h1>Mural de Turmas</h1>
+    <p class="subtitulo">Family Academy</p>
 
-  <ul>
-    <li>
-      <span class="curso">Violão Iniciante</span>
-      <span class="info">Professor(a): Zé das Cordas — Dia: Terça-feira</span>
-    </li>
-    <li>
-      <span class="curso">Pintura em Tela</span>
-      <span class="info">Professor(a): Marta Pincel — Dia: Quinta-feira</span>
-    </li>
-    <li>
-      <span class="curso">Culinária Básica</span>
-      <span class="info">Professor(a): João Sabor — Dia: Sábado</span>
-    </li>
-  </ul>
+    <div class="acoes">
+      <button id="botao-nova-turma">+ Nova turma</button>
+      <button id="botao-modo-escuro" aria-label="Alternar modo escuro">🌙 Modo escuro</button>
+    </div>
+  </header>
 
+  <main>
+    <!-- Painel de cadastro: fica escondido até clicar em "+ Nova turma" -->
+    <form id="form-turma" class="painel-cadastro escondido">
+      <div class="campo">
+        <label for="input-curso">Nome da turma</label>
+        <input type="text" id="input-curso" required placeholder="Ex.: Violão Iniciante">
+      </div>
+
+      <div class="campo">
+        <label for="input-professor">Professor(a)</label>
+        <input type="text" id="input-professor" required placeholder="Ex.: Zé das Cordas">
+      </div>
+
+      <div class="campo">
+        <label for="input-dia">Dia da semana</label>
+        <select id="input-dia" required>
+          <option value="" disabled selected>Selecione</option>
+          <option>Segunda-feira</option>
+          <option>Terça-feira</option>
+          <option>Quarta-feira</option>
+          <option>Quinta-feira</option>
+          <option>Sexta-feira</option>
+          <option>Sábado</option>
+          <option>Domingo</option>
+        </select>
+      </div>
+
+      <div class="botoes-form">
+        <button type="submit" class="botao-primario">Cadastrar</button>
+        <button type="button" id="botao-cancelar">Cancelar</button>
+      </div>
+    </form>
+
+    <p id="contador"></p>
+
+    <ul id="lista-turmas">
+      <li>
+        <span class="curso">Violão Iniciante</span>
+        <span class="info">Prof(a). Zé das Cordas · Terça-feira</span>
+      </li>
+      <li>
+        <span class="curso">Pintura em Tela</span>
+        <span class="info">Prof(a). Marta Pincel · Quinta-feira</span>
+      </li>
+      <li>
+        <span class="curso">Culinária Básica</span>
+        <span class="info">Prof(a). João Sabor · Sábado</span>
+      </li>
+    </ul>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
