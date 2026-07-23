@@ -1,179 +1,413 @@
-/* estilo.css — paleta minimalista, tons neutros */
+/* =========================================================
+   FAMILY ACADEMY — folha de estilos
+   Organização do arquivo:
+   1. Variáveis (tema claro e escuro)
+   2. Reset e base
+   3. Cabeçalho e título
+   4. Painéis e cards de turma
+   5. Formulário
+   6. Rodapé
+   7. Responsividade
+   ========================================================= */
+
+
+/* ---------- 1. VARIÁVEIS ---------- */
+/* Variáveis CSS: definimos a cor UMA vez e reutilizamos em todo o arquivo.
+   Trocar o tema vira só trocar o valor delas. */
 
 :root {
-  --bg: #fafafa;
-  --texto: #2b2b2b;
-  --texto-suave: #6b6b6b;
-  --card-bg: #ffffff;
-  --borda: #e2e2e2;
-  --destaque: #3a3a3a;
+  /* Paleta base */
+  --azul-profundo: #0b2545;
+  --azul:          #17457e;
+  --azul-vivo:     #2f6fd0;
+  --azul-claro:    #cddff5;
+  --preto:         #05070d;
+  --branco:        #ffffff;
+
+  /* Cores de acento por modalidade */
+  --cor-musica:   #2f6fd0;
+  --cor-jiujitsu: #0b2545;
+  --cor-danca:    #5b8fe0;
+
+  /* Tokens semânticos — TEMA CLARO */
+  --fundo:          linear-gradient(160deg, #2f6fd0 0%, #a8c8ee 45%, #ffffff 100%);
+  --superficie:     rgba(255, 255, 255, 0.86);
+  --superficie-alt: rgba(255, 255, 255, 0.55);
+  --borda:          rgba(11, 37, 69, 0.12);
+  --texto:          var(--azul-profundo);
+  --texto-suave:    rgba(11, 37, 69, 0.62);
+  --acento:         var(--azul);
+  --sombra:         0 18px 40px -22px rgba(11, 37, 69, 0.55);
+
+  /* Medidas reutilizáveis */
+  --raio: 14px;
+  --transicao: 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-body.modo-escuro {
-  --bg: #1a1a1a;
-  --texto: #f0f0f0;
-  --texto-suave: #b0b0b0;
-  --card-bg: #262626;
-  --borda: #383838;
-  --destaque: #f0f0f0;
+/* TEMA ESCURO — o JavaScript troca o atributo data-tema no <html>
+   e só estas variáveis mudam. Nenhuma regra abaixo precisa ser reescrita. */
+[data-tema="escuro"] {
+  --fundo:          linear-gradient(160deg, #0b2545 0%, #071324 55%, #05070d 100%);
+  --superficie:     rgba(17, 34, 58, 0.72);
+  --superficie-alt: rgba(17, 34, 58, 0.45);
+  --borda:          rgba(160, 195, 240, 0.16);
+  --texto:          #e6eefb;
+  --texto-suave:    rgba(205, 223, 245, 0.62);
+  --acento:         var(--azul-vivo);
+  --sombra:         0 18px 40px -22px rgba(0, 0, 0, 0.8);
+
+  --cor-musica:   #5b9cff;
+  --cor-jiujitsu: #8fb4e8;
+  --cor-danca:    #7fc4ff;
 }
+
+
+/* ---------- 2. RESET E BASE ---------- */
 
 * {
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* padding e borda passam a caber DENTRO da largura */
 }
 
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-color: var(--bg);
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
   color: var(--texto);
-  margin: 0;
-  padding: 50px 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: var(--fundo);
+  background-attachment: fixed; /* o gradiente não "rola" com a página */
+  transition: color var(--transicao);
+  padding: 0 24px 64px;
 }
 
-header {
+/* Acessibilidade: foco visível para quem navega pelo teclado */
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Respeita quem desativou animações no sistema operacional */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+
+/* ---------- 3. CABEÇALHO E TÍTULO ---------- */
+
+.cabecalho {
+  position: relative;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 56px 0 48px;
   text-align: center;
-  margin-bottom: 40px;
 }
 
-h1 {
-  font-weight: 600;
-  font-size: 2em;
-  margin-bottom: 4px;
-  color: var(--destaque);
+.btn-tema {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font: 500 0.82rem 'Inter', sans-serif;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: transform var(--transicao), background var(--transicao);
+}
+
+.btn-tema:hover { transform: translateY(-2px); }
+
+.btn-tema__icone {
+  font-size: 1rem;
+  transition: transform 500ms ease;
+}
+
+[data-tema="escuro"] .btn-tema__icone { transform: rotate(180deg); }
+
+/* --- O título: elemento de assinatura da página --- */
+.titulo-academia {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 7vw, 4.6rem); /* cresce junto com a tela */
+  line-height: 1;
+  letter-spacing: -0.03em;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.28em;
+  cursor: default;
+}
+
+.titulo-academia__palavra {
+  display: inline-block;
+  transition: letter-spacing var(--transicao),
+              transform var(--transicao),
+              color var(--transicao);
+}
+
+/* Efeito de hover: as palavras se afastam levemente e ganham cor de acento */
+.titulo-academia:hover .titulo-academia__palavra {
+  letter-spacing: 0.04em;
+  color: var(--acento);
+}
+
+.titulo-academia:hover .titulo-academia__palavra:first-child {
+  transform: translateX(-6px);
+}
+
+.titulo-academia:hover .titulo-academia__palavra:last-child {
+  transform: translateX(6px);
 }
 
 .subtitulo {
-  color: var(--texto-suave);
-  margin-top: 0;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
+  margin-top: 14px;
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  font-size: 0.85em;
+  color: var(--texto-suave);
 }
 
-.acoes {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
 
-#botao-nova-turma,
-#botao-modo-escuro {
-  border: 1px solid var(--borda);
-  background-color: transparent;
-  color: var(--texto);
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+/* ---------- 4. PAINÉIS E CARDS ---------- */
 
-#botao-nova-turma:hover,
-#botao-modo-escuro:hover {
-  background-color: var(--card-bg);
-}
-
-main {
-  max-width: 560px;
+.conteudo {
+  max-width: 1040px;
   margin: 0 auto;
+  display: grid;
+  gap: 40px;
 }
 
-/* Painel de cadastro */
-.painel-cadastro {
-  background-color: var(--card-bg);
+.painel {
+  background: var(--superficie);
   border: 1px solid var(--borda);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  border-radius: var(--raio);
+  padding: 28px;
+  box-shadow: var(--sombra);
+  backdrop-filter: blur(10px); /* deixa o gradiente aparecer por trás */
+  transition: background var(--transicao), border-color var(--transicao);
 }
 
-.painel-cadastro.escondido {
-  display: none;
+.painel__topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.painel__titulo {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.contador {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Grade responsiva: cada card tem no mínimo 260px;
+   o navegador decide sozinho quantas colunas cabem. */
+.grade-turmas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 20px 20px;
+  background: var(--superficie-alt);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+/* Faixa de cor no topo do card: identifica a modalidade de relance */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--cor-card);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra);
+}
+
+.card__modalidade {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cor-card);
+}
+
+.card__nome {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin: 8px 0 14px;
+  line-height: 1.3;
+}
+
+.card__linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.86rem;
+  padding: 5px 0;
+  border-top: 1px solid var(--borda);
+}
+
+.card__rotulo { color: var(--texto-suave); }
+.card__valor  { font-weight: 500; text-align: right; }
+
+.card__remover {
+  position: absolute;
+  top: 14px;
+  right: 12px;
+  width: 26px;
+  height: 26px;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--texto-suave);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transicao), color var(--transicao);
+}
+
+.card:hover .card__remover,
+.card__remover:focus-visible { opacity: 1; }
+.card__remover:hover { color: #e05252; }
+
+.vazio {
+  grid-column: 1 / -1;
+  padding: 36px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  border: 1px dashed var(--borda);
+  border-radius: 12px;
+}
+
+
+/* ---------- 5. FORMULÁRIO ---------- */
+
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  align-items: end;
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
 .campo label {
-  font-size: 0.85em;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--texto-suave);
 }
 
 .campo input,
 .campo select {
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--borda);
-  background-color: var(--bg);
+  height: 42px;
+  padding: 0 12px;
+  font: 400 0.92rem 'Inter', sans-serif;
   color: var(--texto);
-  font-size: 0.95em;
+  background: var(--superficie-alt);
+  border: 1px solid var(--borda);
+  border-radius: 9px;
+  transition: border-color var(--transicao), background var(--transicao);
 }
 
-.botoes-form {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
+.campo input::placeholder { color: var(--texto-suave); }
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--acento);
 }
 
-.botao-primario {
-  background-color: var(--destaque);
-  color: var(--bg);
+/* Classe aplicada pelo JavaScript quando o campo está inválido */
+.campo input.invalido,
+.campo select.invalido { border-color: #e05252; }
+
+.btn-salvar {
+  height: 42px;
+  padding: 0 22px;
+  font: 600 0.9rem 'Inter', sans-serif;
+  color: var(--branco);
+  background: var(--acento);
   border: none;
-  padding: 8px 18px;
-  border-radius: 6px;
+  border-radius: 9px;
   cursor: pointer;
-  font-size: 0.9em;
+  transition: transform var(--transicao), filter var(--transicao);
 }
 
-#botao-cancelar {
-  background-color: transparent;
-  border: 1px solid var(--borda);
-  color: var(--texto);
-  padding: 8px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9em;
+.btn-salvar:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.btn-salvar:active { transform: translateY(0); }
+
+.aviso {
+  grid-column: 1 / -1;
+  min-height: 1.2em;
+  font-size: 0.84rem;
+  color: var(--texto-suave);
 }
 
-#contador {
+.aviso--erro    { color: #e05252; }
+.aviso--sucesso { color: var(--acento); }
+
+
+/* ---------- 6. RODAPÉ ---------- */
+
+.rodape {
+  max-width: 1040px;
+  margin: 48px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--borda);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
   text-align: center;
-  color: var(--texto-suave);
-  font-size: 0.9em;
-  margin-bottom: 25px;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 
-li {
-  background-color: var(--card-bg);
-  border: 1px solid var(--borda);
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin-bottom: 12px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
+/* ---------- 7. RESPONSIVIDADE ---------- */
 
-.curso {
-  display: block;
-  font-weight: 600;
-  font-size: 1.05em;
-}
+@media (max-width: 640px) {
+  body { padding: 0 16px 48px; }
 
-.info {
-  display: block;
-  color: var(--texto-suave);
-  font-size: 0.9em;
-  margin-top: 4px;
+  .cabecalho { padding-top: 76px; }
+
+  .btn-tema {
+    top: 18px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+  .btn-tema:hover { transform: translateX(50%) translateY(-2px); }
+
+  .painel { padding: 20px 18px; }
 }

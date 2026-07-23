@@ -1,73 +1,97 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" data-tema="claro">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mural de Turmas — Family Academy</title>
+  <title>Family Academy — Painel de Turmas</title>
+
+  <!-- Fontes: Sora para títulos, Inter para texto corrido -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@300;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
-  <header>
-    <h1>Mural de Turmas</h1>
-    <p class="subtitulo">Family Academy</p>
+  <!-- ============ CABEÇALHO ============ -->
+  <header class="cabecalho">
+    <button id="btn-tema" class="btn-tema" aria-pressed="false">
+      <span class="btn-tema__icone" aria-hidden="true">◐</span>
+      <span class="btn-tema__texto">Modo escuro</span>
+    </button>
 
-    <div class="acoes">
-      <button id="botao-nova-turma">+ Nova turma</button>
-      <button id="botao-modo-escuro" aria-label="Alternar modo escuro">🌙 Modo escuro</button>
-    </div>
+    <h1 class="titulo-academia">
+      <span class="titulo-academia__palavra">Family</span>
+      <span class="titulo-academia__palavra">Academy</span>
+    </h1>
+    <p class="subtitulo">Painel de turmas</p>
   </header>
 
-  <main>
-    <!-- Painel de cadastro: fica escondido até clicar em "+ Nova turma" -->
-    <form id="form-turma" class="painel-cadastro escondido">
-      <div class="campo">
-        <label for="input-curso">Nome da turma</label>
-        <input type="text" id="input-curso" required placeholder="Ex.: Violão Iniciante">
+  <main class="conteudo">
+
+    <!-- ============ PAINEL 1: LISTA DE TURMAS ============ -->
+    <section class="painel" aria-labelledby="titulo-turmas">
+      <div class="painel__topo">
+        <h2 id="titulo-turmas" class="painel__titulo">Turmas ativas</h2>
+        <span id="contador-turmas" class="contador">0 turmas</span>
       </div>
 
-      <div class="campo">
-        <label for="input-professor">Professor(a)</label>
-        <input type="text" id="input-professor" required placeholder="Ex.: Zé das Cordas">
+      <!-- Os cards são gerados pelo JavaScript. Deixamos vazio de propósito. -->
+      <div id="lista-turmas" class="grade-turmas"></div>
+    </section>
+
+    <!-- ============ PAINEL 2: CADASTRO ============ -->
+    <section class="painel" aria-labelledby="titulo-cadastro">
+      <div class="painel__topo">
+        <h2 id="titulo-cadastro" class="painel__titulo">Cadastrar nova turma</h2>
       </div>
 
-      <div class="campo">
-        <label for="input-dia">Dia da semana</label>
-        <select id="input-dia" required>
-          <option value="" disabled selected>Selecione</option>
-          <option>Segunda-feira</option>
-          <option>Terça-feira</option>
-          <option>Quarta-feira</option>
-          <option>Quinta-feira</option>
-          <option>Sexta-feira</option>
-          <option>Sábado</option>
-          <option>Domingo</option>
-        </select>
-      </div>
+      <form id="form-turma" class="formulario" novalidate>
+        <div class="campo">
+          <label for="nome">Nome da turma</label>
+          <input type="text" id="nome" name="nome" placeholder="Ex: Violão — Iniciante" required>
+        </div>
 
-      <div class="botoes-form">
-        <button type="submit" class="botao-primario">Cadastrar</button>
-        <button type="button" id="botao-cancelar">Cancelar</button>
-      </div>
-    </form>
+        <div class="campo">
+          <label for="professor">Professor(a)</label>
+          <input type="text" id="professor" name="professor" placeholder="Ex: Mateus Andrade" required>
+        </div>
 
-    <p id="contador"></p>
+        <div class="campo">
+          <label for="modalidade">Modalidade</label>
+          <select id="modalidade" name="modalidade" required>
+            <option value="">Selecione</option>
+            <option value="musica">Música</option>
+            <option value="jiujitsu">Jiu-Jitsu</option>
+            <option value="danca">Dança</option>
+          </select>
+        </div>
 
-    <ul id="lista-turmas">
-      <li>
-        <span class="curso">Violão Iniciante</span>
-        <span class="info">Prof(a). Zé das Cordas · Terça-feira</span>
-      </li>
-      <li>
-        <span class="curso">Pintura em Tela</span>
-        <span class="info">Prof(a). Marta Pincel · Quinta-feira</span>
-      </li>
-      <li>
-        <span class="curso">Culinária Básica</span>
-        <span class="info">Prof(a). João Sabor · Sábado</span>
-      </li>
-    </ul>
+        <div class="campo">
+          <label for="horario">Horário</label>
+          <input type="text" id="horario" name="horario" placeholder="Ex: Ter e Qui, 18h30" required>
+        </div>
+
+        <div class="campo">
+          <label for="vagas">Vagas</label>
+          <input type="number" id="vagas" name="vagas" min="1" max="60" placeholder="20" required>
+        </div>
+
+        <div class="campo campo--acoes">
+          <button type="submit" class="btn-salvar">Cadastrar turma</button>
+        </div>
+
+        <!-- Área de mensagens de erro/sucesso, preenchida pelo JavaScript -->
+        <p id="aviso-form" class="aviso" role="status"></p>
+      </form>
+    </section>
+
   </main>
+
+  <footer class="rodape">
+    <p>Family Academy &middot; painel interno</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
