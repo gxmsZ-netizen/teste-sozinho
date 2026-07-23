@@ -216,6 +216,44 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* >>> NOVO: campo de busca --------------------------------- */
+
+.busca {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.busca__icone {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.05rem;
+  color: var(--texto-suave);
+  pointer-events: none; /* o ícone não "rouba" o clique do campo */
+}
+
+.busca__campo {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px 0 38px; /* espaço à esquerda para o ícone */
+  font: 400 0.92rem 'Inter', sans-serif;
+  color: var(--texto);
+  background: var(--superficie-alt);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  transition: border-color var(--transicao), background var(--transicao);
+}
+
+.busca__campo::placeholder { color: var(--texto-suave); }
+
+.busca__campo:focus {
+  outline: none;
+  border-color: var(--acento);
+}
+
+/* ---------------------------------------------------------- */
+
 /* Grade responsiva: cada card tem no mínimo 260px;
    o navegador decide sozinho quantas colunas cabem. */
 .grade-turmas {
