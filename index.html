@@ -1,109 +1,171 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-tema="claro">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Family Academy — Painel de Turmas</title>
-
-  <!-- Fontes: Sora para títulos, Inter para texto corrido -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@300;600;700&display=swap" rel="stylesheet">
-
+  <title>Family Academy — Painel</title>
   <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
-  <!-- ============ CABEÇALHO ============ -->
-  <header class="cabecalho">
-    <button id="btn-tema" class="btn-tema" aria-pressed="false">
-      <span class="btn-tema__icone" aria-hidden="true">◐</span>
-      <span class="btn-tema__texto">Modo escuro</span>
-    </button>
+  <div class="layout">
 
-    <h1 class="titulo-academia">
-      <span class="titulo-academia__palavra">Family</span>
-      <span class="titulo-academia__palavra">Academy</span>
-    </h1>
-    <p class="subtitulo">Painel de turmas</p>
-  </header>
-
-  <main class="conteudo">
-
-    <!-- ============ PAINEL 1: LISTA DE TURMAS ============ -->
-    <section class="painel" aria-labelledby="titulo-turmas">
-      <div class="painel__topo">
-        <h2 id="titulo-turmas" class="painel__titulo">Turmas ativas</h2>
-        <span id="contador-turmas" class="contador">0 turmas</span>
+    <aside class="sidebar">
+      <div class="marca">
+        <h1>Family Academy</h1>
+        <p class="subtitulo">Painel</p>
       </div>
 
-      <!-- >>> NOVO: campo de busca ============================== -->
-      <div class="busca">
-        <span class="busca__icone" aria-hidden="true">⌕</span>
-        <input type="search"
-               id="campo-busca"
-               class="busca__campo"
-               placeholder="Buscar por curso, professor, dia ou modalidade"
-               aria-label="Buscar turmas"
-               autocomplete="off">
-      </div>
-      <!-- ======================================================== -->
+      <nav class="menu">
+        <button class="item-menu ativo" data-secao="secao-turmas">📚 Turmas</button>
+        <button class="item-menu" data-secao="secao-professores">🧑‍🏫 Professores</button>
+      </nav>
 
-      <!-- Os cards são gerados pelo JavaScript. Deixamos vazio de propósito. -->
-      <div id="lista-turmas" class="grade-turmas"></div>
-    </section>
+      <button id="botao-modo-escuro" class="botao-modo" aria-label="Alternar modo escuro">🌙 Modo escuro</button>
+    </aside>
 
-    <!-- ============ PAINEL 2: CADASTRO ============ -->
-    <section class="painel" aria-labelledby="titulo-cadastro">
-      <div class="painel__topo">
-        <h2 id="titulo-cadastro" class="painel__titulo">Cadastrar nova turma</h2>
-      </div>
+    <main class="conteudo">
 
-      <form id="form-turma" class="formulario" novalidate>
-        <div class="campo">
-          <label for="nome">Nome da turma</label>
-          <input type="text" id="nome" name="nome" placeholder="Ex: Violão — Iniciante" required>
+      <!-- SEÇÃO: TURMAS -->
+      <section id="secao-turmas" class="secao ativa">
+        <div class="cabecalho-secao">
+          <h2>Mural de Turmas</h2>
+          <button id="botao-nova-turma">+ Criar aula</button>
         </div>
 
-        <div class="campo">
-          <label for="professor">Professor(a)</label>
-          <input type="text" id="professor" name="professor" placeholder="Ex: Mateus Andrade" required>
+        <form id="form-turma" class="painel-cadastro escondido">
+          <div class="campo">
+            <label for="input-curso">Nome da aula</label>
+            <input type="text" id="input-curso" required placeholder="Ex.: Curso de Casais">
+          </div>
+
+          <div class="campo">
+            <label for="input-professor">Professor(a) / Líder</label>
+            <input type="text" id="input-professor" required placeholder="Ex.: Zé das Cordas">
+          </div>
+
+          <div class="campo">
+            <label for="input-campus">Campus</label>
+            <select id="input-campus" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>Campus 85</option>
+              <option>Campus 153</option>
+            </select>
+          </div>
+
+          <fieldset class="campo grupo-dias">
+            <legend>Dias e horários</legend>
+            <div class="linha-dia">
+              <label><input type="checkbox" class="check-dia" data-dia="Seg"> Seg</label>
+              <input type="time" class="horario-dia" disabled>
+            </div>
+            <div class="linha-dia">
+              <label><input type="checkbox" class="check-dia" data-dia="Ter"> Ter</label>
+              <input type="time" class="horario-dia" disabled>
+            </div>
+            <div class="linha-dia">
+              <label><input type="checkbox" class="check-dia" data-dia="Qua"> Qua</label>
+              <input type="time" class="horario-dia" disabled>
+            </div>
+            <div class="linha-dia">
+              <label><input type="checkbox" class="check-dia" data-dia="Qui"> Qui</label>
+              <input type="time" class="horario-dia" disabled>
+            </div>
+            <div class="linha-dia">
+              <label><input type="checkbox" class="check-dia" data-dia="Sex"> Sex</label>
+              <input type="time" class="horario-dia" disabled>
+            </div>
+            <div class="linha-dia">
+              <label><input type="checkbox" class="check-dia" data-dia="Sáb"> Sáb</label>
+              <input type="time" class="horario-dia" disabled>
+            </div>
+            <div class="linha-dia">
+              <label><input type="checkbox" class="check-dia" data-dia="Dom"> Dom</label>
+              <input type="time" class="horario-dia" disabled>
+            </div>
+          </fieldset>
+
+          <fieldset class="campo grupo-cobranca">
+            <legend>Cobrança da turma</legend>
+            <div class="opcoes-cobranca">
+              <label><input type="radio" name="cobranca" value="paga" checked> Paga</label>
+              <label><input type="radio" name="cobranca" value="gratuita"> Gratuita (sem cobrança)</label>
+            </div>
+            <div class="campo" id="bloco-valor">
+              <label for="input-valor">Valor (R$)</label>
+              <input type="text" id="input-valor" inputmode="numeric" placeholder="R$ 0,00">
+            </div>
+          </fieldset>
+
+          <div class="botoes-form">
+            <button type="submit" class="botao-primario">Cadastrar aula</button>
+            <button type="button" id="botao-cancelar">Cancelar</button>
+          </div>
+        </form>
+
+        <p id="contador"></p>
+
+        <ul id="lista-turmas">
+          <li>
+            <span class="curso">Violão Iniciante</span>
+            <span class="info">Prof(a). Zé das Cordas · Terça-feira</span>
+          </li>
+          <li>
+            <span class="curso">Pintura em Tela</span>
+            <span class="info">Prof(a). Marta Pincel · Quinta-feira</span>
+          </li>
+          <li>
+            <span class="curso">Culinária Básica</span>
+            <span class="info">Prof(a). João Sabor · Sábado</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- SEÇÃO: PROFESSORES -->
+      <section id="secao-professores" class="secao">
+        <div class="cabecalho-secao">
+          <h2>Professores</h2>
+          <button id="botao-novo-professor">+ Cadastrar professor</button>
         </div>
 
-        <div class="campo">
-          <label for="modalidade">Modalidade</label>
-          <select id="modalidade" name="modalidade" required>
-            <option value="">Selecione</option>
-            <option value="musica">Música</option>
-            <option value="jiujitsu">Jiu-Jitsu</option>
-            <option value="danca">Dança</option>
-          </select>
-        </div>
+        <form id="form-professor" class="painel-cadastro escondido">
+          <div class="campo">
+            <label for="input-nome-professor">Nome completo</label>
+            <input type="text" id="input-nome-professor" required placeholder="Ex.: Maria Sousa">
+          </div>
 
-        <div class="campo">
-          <label for="horario">Horário</label>
-          <input type="text" id="horario" name="horario" placeholder="Ex: Ter e Qui, 18h30" required>
-        </div>
+          <div class="campo">
+            <label for="input-contato-professor">Contato (telefone ou e-mail)</label>
+            <input type="text" id="input-contato-professor" required placeholder="Ex.: (62) 99999-0000">
+          </div>
 
-        <div class="campo">
-          <label for="vagas">Vagas</label>
-          <input type="number" id="vagas" name="vagas" min="1" max="60" placeholder="20" required>
-        </div>
+          <div class="campo">
+            <label for="input-area-professor">Área de atuação</label>
+            <input type="text" id="input-area-professor" required placeholder="Ex.: Violão, Culinária...">
+          </div>
 
-        <div class="campo campo--acoes">
-          <button type="submit" class="btn-salvar">Cadastrar turma</button>
-        </div>
+          <div class="botoes-form">
+            <button type="submit" class="botao-primario">Cadastrar professor</button>
+            <button type="button" id="botao-cancelar-professor">Cancelar</button>
+          </div>
+        </form>
 
-        <!-- Área de mensagens de erro/sucesso, preenchida pelo JavaScript -->
-        <p id="aviso-form" class="aviso" role="status"></p>
-      </form>
-    </section>
+        <p id="contador-professores"></p>
 
-  </main>
+        <ul id="lista-professores">
+          <li>
+            <span class="curso">Zé das Cordas</span>
+            <span class="info">Violão · (62) 99999-0001</span>
+          </li>
+          <li>
+            <span class="curso">Marta Pincel</span>
+            <span class="info">Pintura em Tela · (62) 99999-0002</span>
+          </li>
+        </ul>
+      </section>
 
-  <footer class="rodape">
-    <p>Family Academy &middot; painel interno</p>
-  </footer>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
